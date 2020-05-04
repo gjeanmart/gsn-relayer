@@ -1,0 +1,9 @@
+FROM raspbian/stretch
+MAINTAINER gjeanmart
+
+WORKDIR /app
+
+ADD build/server/bin/RelayHttpServer /app/RelayHttpServer
+
+# Run
+CMD "sh" "-c" "/app/RelayHttpServer -Url ${URL} -Port ${LOCAL_PORT} -Workdir /app/data -EthereumNodeUrl ${NODE_URL} -RelayHubAddress ${RELAY_HUB} -Fee ${FEE} -GasPricePercent ${GAS_PRICE_PERCENT} -DefaultGasPrice ${DEFAULT_GAS_PRICE}"

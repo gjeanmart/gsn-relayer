@@ -1,0 +1,19 @@
+# gsn-relayer.service.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: gsn-relayer
+  name: gsn-relayer
+  labels:
+    app: gsn-relayer
+spec:
+  type: NodePort
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: http
+  selector:
+    app: gsn-relayer
+---

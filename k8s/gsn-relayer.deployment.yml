@@ -1,0 +1,45 @@
+# gsn-relayer.deployment.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: gsn-relayer
+  name: gsn-relayer
+  labels:
+    app: gsn-relayer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gsn-relayer
+  template:
+    metadata:
+      labels:
+        app: gsn-relayer
+    spec:
+      containers:
+      - name: gsn-relayer
+        image: gjeanmart/gsn-relayer-arm #dmihal/gsn-relay-xdai
+        ports:
+        - name: http
+          containerPort: 80
+          protocol: TCP
+        env:
+        - name: URL
+          value: http://gsn.jeanmart.me
+        - name: LOCAL_PORT
+          value: "80"
+        - name: NODE_URL
+          value: wss://rinkeby.infura.io/ws/v3/083836b2784f48e19e03487eb3209923
+        - name: RELAY_HUB
+          value: "0xD216153c06E857cD7f72665E0aF1d7D82172F494"
+        - name: GAS_PRICE_PERCENT
+          value: "50"
+        volumeMounts:
+        - name: data
+          mountPath: /app/data
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: gsn-relayer-ssd
+---

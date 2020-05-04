@@ -1,0 +1,32 @@
+#usage:
+#- edit .env file with your host name and infura URL,
+#- run: docker-compose up -d
+#- curl https://myhost.com/getaddr
+#- write down the relay address
+#- fund the relay (script from GSNv1: https://github.com/opengsn/gsn/blob/13fa9d029bfa8858519e25ca6f16e717d695bdab/scripts/fundrelay.js)
+#  - ./scripts/fundrelay.js RELAY_HUB_ADDRESS 'https://example.com' 0 PROVIDER_URL
+
+version: '3'
+
+services:
+  https-portal:
+    image: steveltn/https-portal:1
+    ports:
+      - '8080:80'
+      - '8443:443'
+    restart: always
+    environment:
+      DOMAINS: '${HOST} -> http://gsn1'
+      STAGE: 'production'
+
+  gsn1:
+    image: dmihal/gsn-relay-xdai
+    restart: always
+    volumes:
+      - ./gsn1-data:/app/data
+    environment:
+      URL: https://${HOST}
+      LOCAL_PORT: 8080
+      NODE_URL: ${NODE_URL}
+      RELAY_HUB: "${RELAY_HUB}"
+      GAS_PRICE_PERCENT: ${GAS_PRICE_PERCENT}

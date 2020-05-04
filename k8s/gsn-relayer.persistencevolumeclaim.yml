@@ -1,0 +1,15 @@
+# gsn-relayer.persistencevolumeclaim.yml
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: gsn-relayer
+  name: gsn-relayer-ssd
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 200Mi
+---
