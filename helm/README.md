@@ -7,8 +7,8 @@ Helm chart for deploying a [Gas Station Network (v1)](https://github.com/opengsn
 To install the chart with the release name `<release-name>`:
 
 ```console
-$ git clone https://github.com/gjeanmart/gsn-relayer-k8s
-$ helm install <release-name> ./gsn-relayer-k8s --namespace <namespace> --values </path/to/values.yml>
+$ git clone https://github.com/gjeanmart/gsn-relayer
+$ helm install <release-name> ./gsn-relayer --namespace <namespace> --values </path/to/values.yml>
 ```
 
 ## Uninstalling the Chart
